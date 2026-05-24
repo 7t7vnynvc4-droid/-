@@ -460,6 +460,7 @@ select.inp { cursor:pointer; }
   border-radius:2px;
 }
 #exportCard .ec-section.transfer::before { background:#4ECDC4; }
+#exportCard .ec-section.items::before    { background:#FFE66D; }
 #exportCard .ec-section.balance::before  { background:#FF6B6B; }
 /* transfer row */
 #exportCard .ec-row {
@@ -470,6 +471,30 @@ select.inp { cursor:pointer; }
 }
 #exportCard .ec-arrow { color:#4ECDC4; font-size:0.8rem; flex-shrink:0; }
 #exportCard .ec-amount { margin-left:auto; color:#FFE66D; font-weight:900; white-space:nowrap; }
+/* item list row */
+#exportCard .ec-item {
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:0.5rem 0.2rem;
+}
+#exportCard .ec-item:last-child { border-bottom:none; }
+#exportCard .ec-item-top {
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:0.5rem; margin-bottom:0.18rem;
+}
+#exportCard .ec-item-name {
+  color:#fff; font-size:0.84rem; font-weight:700;
+  flex:1; min-width:0;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+#exportCard .ec-item-amt {
+  color:#FFE66D; font-family:'Nunito',sans-serif;
+  font-size:0.88rem; font-weight:900; white-space:nowrap; flex-shrink:0;
+}
+#exportCard .ec-item-sub {
+  font-size:0.7rem; color:rgba(255,255,255,0.4); line-height:1.5;
+}
+#exportCard .ec-item-sub .ec-item-payer { color:rgba(78,205,196,0.85); font-weight:700; }
+#exportCard .ec-item-sub .ec-item-targets { color:rgba(255,255,255,0.38); }
 /* balance row */
 #exportCard .ec-bal {
   display:flex; justify-content:space-between; align-items:center;
@@ -1282,7 +1307,7 @@ function saveImage() {
   const fileName  = `mikoto_${dateStr.replace(/\//g, '-')}.png`;
 
   /* ---- build report HTML ---- */
-  // transfer rows
+  // ① transfer rows
   let transfersHtml = '';
   if (transfers.length === 0) {
     transfersHtml = `<div class="ec-settled">✅ 全員精算済み！</div>`;
@@ -1298,7 +1323,27 @@ function saveImage() {
     });
   }
 
-  // balance rows
+  // ② item list rows (oldest → newest for readability)
+  const sortedItems = [...items].sort((a, b) => a.id - b.id);
+  const itemsHtml = sortedItems.map(it => {
+    const perPerson = it.targets.length > 0
+      ? Math.floor(it.amount / it.targets.length)
+      : it.amount;
+    const targetsStr = it.targets.map(escHtml).join('・');
+    return `<div class="ec-item">
+      <div class="ec-item-top">
+        <span class="ec-item-name">${escHtml(it.name)}</span>
+        <span class="ec-item-amt">¥${fmtAmt(it.amount)}</span>
+      </div>
+      <div class="ec-item-sub">
+        支払: <span class="ec-item-payer">${escHtml(it.payer)}</span>
+        &nbsp;／&nbsp;対象: <span class="ec-item-targets">${targetsStr}</span>
+        &nbsp;（一人&nbsp;¥${fmtAmt(perPerson)}）
+      </div>
+    </div>`;
+  }).join('');
+
+  // ③ balance rows
   let balanceHtml = members.map(m => {
     const v   = Math.round(balance[m] || 0);
     const cls = v > 0 ? 'ec-bal-pos' : v < 0 ? 'ec-bal-neg' : 'ec-bal-zero';
@@ -1329,6 +1374,11 @@ function saveImage() {
 
       <div class="ec-section transfer">送金ルート</div>
       ${transfersHtml}
+
+      <div class="ec-divider"></div>
+
+      <div class="ec-section items">項目一覧</div>
+      ${itemsHtml}
 
       <div class="ec-divider"></div>
 
