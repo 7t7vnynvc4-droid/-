@@ -417,21 +417,86 @@ select.inp { cursor:pointer; }
 
 /* ===== Image Export Card ===== */
 #exportCard {
-  background:linear-gradient(135deg,#2D3561 0%,#1A1A2E 100%);
-  padding:1.5rem; width:360px; border-radius:20px;
+  background:linear-gradient(160deg,#2D3561 0%,#1A1A2E 60%,#0D1120 100%);
+  padding:0; width:400px; border-radius:0;
   font-family:'Nunito','Noto Sans JP',sans-serif;
+  overflow:hidden;
 }
-#exportCard .ec-title { color:#fff; font-size:1.1rem; font-weight:900; margin-bottom:0.2rem; }
-#exportCard .ec-sub { color:rgba(255,255,255,0.5); font-size:0.75rem; margin-bottom:1rem; }
-#exportCard .ec-total { color:var(--yellow); font-size:0.85rem; font-weight:700; margin-bottom:0.6rem; }
+/* top accent bar */
+#exportCard .ec-accent {
+  height:5px;
+  background:linear-gradient(90deg,#4ECDC4 0%,#FFE66D 50%,#FF6B6B 100%);
+}
+#exportCard .ec-body { padding:1.6rem 1.5rem 1.2rem; }
+/* header */
+#exportCard .ec-app { color:rgba(255,255,255,0.35); font-size:0.65rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.3rem; }
+#exportCard .ec-title { color:#fff; font-size:1.35rem; font-weight:900; line-height:1.2; margin-bottom:0.15rem; }
+#exportCard .ec-date { color:rgba(255,255,255,0.45); font-size:0.72rem; margin-bottom:1rem; }
+/* meta chips row */
+#exportCard .ec-meta { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+#exportCard .ec-chip {
+  background:rgba(255,255,255,0.08); border-radius:999px;
+  padding:0.25rem 0.7rem; font-size:0.72rem; font-weight:700; color:rgba(255,255,255,0.6);
+  display:inline-flex; align-items:center; gap:0.3rem;
+}
+#exportCard .ec-chip-val { color:#fff; }
+/* total big */
+#exportCard .ec-total-box {
+  background:rgba(255,230,109,0.1); border:1px solid rgba(255,230,109,0.25);
+  border-radius:14px; padding:0.75rem 1rem; margin-bottom:1.1rem;
+  display:flex; align-items:center; justify-content:space-between;
+}
+#exportCard .ec-total-label { color:rgba(255,255,255,0.55); font-size:0.75rem; font-weight:700; }
+#exportCard .ec-total-val { color:#FFE66D; font-size:1.3rem; font-weight:900; }
+/* section headers */
+#exportCard .ec-section {
+  font-size:0.68rem; font-weight:800; letter-spacing:0.1em;
+  color:rgba(255,255,255,0.35); text-transform:uppercase;
+  margin-bottom:0.45rem; margin-top:0.9rem;
+  display:flex; align-items:center; gap:0.4rem;
+}
+#exportCard .ec-section::before {
+  content:''; display:inline-block; width:3px; height:10px;
+  border-radius:2px;
+}
+#exportCard .ec-section.transfer::before { background:#4ECDC4; }
+#exportCard .ec-section.balance::before  { background:#FF6B6B; }
+/* transfer row */
 #exportCard .ec-row {
-  background:rgba(255,255,255,0.08); border-radius:12px;
-  padding:0.6rem 0.85rem; margin-bottom:0.4rem;
-  display:flex; align-items:center; gap:0.5rem; color:#fff; font-size:0.88rem; font-weight:700;
+  background:rgba(255,255,255,0.06); border-radius:10px;
+  padding:0.55rem 0.85rem; margin-bottom:0.35rem;
+  display:flex; align-items:center; gap:0.5rem;
+  color:#fff; font-size:0.85rem; font-weight:700;
 }
-#exportCard .ec-amount { margin-left:auto; color:var(--yellow); font-weight:900; }
-#exportCard .ec-members { color:rgba(255,255,255,0.45); font-size:0.72rem; margin-top:0.8rem; }
-#exportCard .ec-footer { color:rgba(255,255,255,0.3); font-size:0.68rem; margin-top:0.6rem; text-align:right; }
+#exportCard .ec-arrow { color:#4ECDC4; font-size:0.8rem; flex-shrink:0; }
+#exportCard .ec-amount { margin-left:auto; color:#FFE66D; font-weight:900; white-space:nowrap; }
+/* balance row */
+#exportCard .ec-bal {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0.35rem 0; border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:0.8rem;
+}
+#exportCard .ec-bal:last-child { border-bottom:none; }
+#exportCard .ec-bal-name { color:rgba(255,255,255,0.6); font-weight:600; }
+#exportCard .ec-bal-pos { color:#7EDDD6; font-weight:800; font-family:'Nunito',sans-serif; }
+#exportCard .ec-bal-neg { color:#FF8E8E; font-weight:800; font-family:'Nunito',sans-serif; }
+#exportCard .ec-bal-zero { color:rgba(255,255,255,0.25); font-weight:700; font-family:'Nunito',sans-serif; }
+/* divider */
+#exportCard .ec-divider { height:1px; background:rgba(255,255,255,0.07); margin:0.8rem 0; }
+/* settled */
+#exportCard .ec-settled { color:rgba(255,255,255,0.5); font-size:0.82rem; padding:0.4rem 0; text-align:center; }
+/* footer */
+#exportCard .ec-footer {
+  border-top:1px solid rgba(255,255,255,0.06); margin-top:1rem; padding-top:0.7rem;
+  display:flex; justify-content:space-between; align-items:center;
+}
+#exportCard .ec-footer-app { color:rgba(255,255,255,0.2); font-size:0.62rem; font-weight:700; letter-spacing:0.05em; }
+#exportCard .ec-footer-dot {
+  width:18px; height:18px; border-radius:5px;
+  background:linear-gradient(135deg,#2D3561,#4ECDC4);
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:0.65rem;
+}
 </style>
 </head>
 <body>
@@ -1199,42 +1264,126 @@ function fallbackCopy(text) {
 }
 
 /* =============================================
-   ⑨ SAVE IMAGE (html2canvas)
+   🖼 SAVE IMAGE — Web Share API + html2canvas
    ============================================= */
 function saveImage() {
-  const balance = calcBalance();
+  if (typeof html2canvas === 'undefined') {
+    showToast('画像ライブラリが読み込まれていません'); return;
+  }
+  if (items.length === 0) {
+    showToast('データがありません'); return;
+  }
+
+  const balance   = calcBalance();
   const transfers = minimizeTransfers(balance);
-  const total = items.reduce((s,i) => s+i.amount, 0);
-  const date = new Date().toLocaleDateString('ja-JP');
+  const total     = items.reduce((s, i) => s + i.amount, 0);
+  const now       = new Date();
+  const dateStr   = now.toLocaleDateString('ja-JP');
+  const fileName  = `mikoto_${dateStr.replace(/\//g, '-')}.png`;
 
-  const card = document.getElementById('exportCard');
-  let html = `
-    <div class="ec-title">🧾 みことの集金精算</div>
-    <div class="ec-sub">${date} ／ 参加者: ${members.map(escHtml).join('、')}</div>
-    <div class="ec-total">合計金額: ¥${fmtAmt(total)}</div>
-  `;
-
+  /* ---- build report HTML ---- */
+  // transfer rows
+  let transfersHtml = '';
   if (transfers.length === 0) {
-    html += `<div style="color:rgba(255,255,255,0.6);font-size:0.88rem;padding:0.5rem 0;">✅ 全員精算済み！</div>`;
+    transfersHtml = `<div class="ec-settled">✅ 全員精算済み！</div>`;
   } else {
     transfers.forEach(t => {
-      html += `<div class="ec-row"><span>${escHtml(t.from)}</span><span style="color:var(--yellow);font-size:0.9rem;">➡️</span><span>${escHtml(t.to)}</span><span class="ec-amount">¥${fmtAmt(t.amt)}</span></div>`;
+      transfersHtml += `
+        <div class="ec-row">
+          <span>${escHtml(t.from)}</span>
+          <span class="ec-arrow">▶</span>
+          <span>${escHtml(t.to)}</span>
+          <span class="ec-amount">¥${fmtAmt(t.amt)}</span>
+        </div>`;
     });
   }
-  html += `<div class="ec-footer">みことの集金精算アプリ</div>`;
-  card.innerHTML = html;
 
-  if (typeof html2canvas === 'undefined') {
-    showToast('画像保存ライブラリが読み込まれていません'); return;
-  }
+  // balance rows
+  let balanceHtml = members.map(m => {
+    const v   = Math.round(balance[m] || 0);
+    const cls = v > 0 ? 'ec-bal-pos' : v < 0 ? 'ec-bal-neg' : 'ec-bal-zero';
+    const sign = v > 0 ? '+' : '';
+    return `<div class="ec-bal">
+      <span class="ec-bal-name">${escHtml(m)}</span>
+      <span class="${cls}">${sign}${fmtAmt(v)}円</span>
+    </div>`;
+  }).join('');
+
+  const card = document.getElementById('exportCard');
+  card.innerHTML = `
+    <div class="ec-accent"></div>
+    <div class="ec-body">
+      <div class="ec-app">みことの集金精算</div>
+      <div class="ec-title">🧾 精算レポート</div>
+      <div class="ec-date">${dateStr}</div>
+
+      <div class="ec-meta">
+        <span class="ec-chip">👥 参加者&nbsp;<span class="ec-chip-val">${members.length}人</span></span>
+        <span class="ec-chip">📋 項目&nbsp;<span class="ec-chip-val">${items.length}件</span></span>
+      </div>
+
+      <div class="ec-total-box">
+        <span class="ec-total-label">💳 合計金額</span>
+        <span class="ec-total-val">¥${fmtAmt(total)}</span>
+      </div>
+
+      <div class="ec-section transfer">送金ルート</div>
+      ${transfersHtml}
+
+      <div class="ec-divider"></div>
+
+      <div class="ec-section balance">収支明細</div>
+      ${balanceHtml}
+
+      <div class="ec-footer">
+        <span class="ec-footer-app">みことの集金精算アプリ</span>
+        <span class="ec-footer-dot">🧾</span>
+      </div>
+    </div>
+  `;
 
   showToast('画像を生成中…');
-  html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true }).then(canvas => {
-    const link = document.createElement('a');
-    link.download = `mikoto_${date.replace(/\//g,'-')}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    showToast('📸 画像を保存しました！');
+
+  // scale:3 for crisp retina; letterRendering improves CJK
+  html2canvas(card, {
+    backgroundColor: null,
+    scale: 3,
+    useCORS: true,
+    letterRendering: true,
+    logging: false
+  }).then(canvas => {
+    canvas.toBlob(blob => {
+      if (!blob) { showToast('画像生成に失敗しました'); return; }
+
+      // --- Web Share API (files) — iPhone Safari / PWA ---
+      const file = new File([blob], fileName, { type: 'image/png' });
+      if (
+        navigator.canShare &&
+        navigator.canShare({ files: [file] }) &&
+        navigator.share
+      ) {
+        navigator.share({
+          title: 'みことの集金精算',
+          files: [file]
+        }).then(() => {
+          showToast('📤 共有シートを開きました');
+        }).catch(err => {
+          // user cancelled — not an error
+          if (err.name !== 'AbortError') showToast('共有に失敗しました');
+        });
+        return;
+      }
+
+      // --- Fallback: plain download (non-iOS / desktop) ---
+      const url  = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = fileName;
+      link.href = url;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      showToast('📸 画像を保存しました！');
+
+    }, 'image/png');
   }).catch(() => showToast('画像生成に失敗しました'));
 }
 
